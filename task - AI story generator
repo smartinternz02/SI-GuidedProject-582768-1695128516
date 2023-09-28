@@ -1,0 +1,142 @@
+import random
+
+class StoryNode:
+    def __init__(self, text, options=None):
+        self.text = text
+        self.options = options or []
+
+    def add_option(self, choice, destination):
+        self.options.append((choice, destination))
+
+    def get_random_option(self):
+        return random.choice(self.options)
+
+# Option class
+class Option:
+    def __init__(self, text, destination):
+        self.text = text
+        self.destination = destination
+
+# Define your story nodes
+start = StoryNode("You find yourself in a haunted forest shrouded in darkness. What do you do?")
+explore_forest = StoryNode("You decide to explore deeper into the forest.")
+look_for_exit = StoryNode("You decide to look for a way out of the forest.")
+encounter_dragon = StoryNode("As you explore, you encounter a fearsome dragon guarding a treasure. What do you do?")
+fight_dragon = StoryNode("You engage in an epic battle with the dragon!")
+befriend_dragon = StoryNode("You offer the dragon a peace treaty, and it agrees to help you.")
+encounter_elves = StoryNode("You come across a group of friendly elves. They offer to guide you through the forest.")
+encounter_dwarves = StoryNode("You meet a group of dwarves mining for precious gems. They invite you to join them.")
+find_treasure = StoryNode("You find a hidden treasure chest guarded by the dragon. What do you do?")
+treasure = StoryNode("Congratulations! You have found a valuable treasure and completed your adventure.")
+exit_forest = StoryNode("You search for a way out and eventually find the edge of the forest. Your adventure ends here.")
+knight = StoryNode("A brave knight appears and offers to help you on your quest.")
+unexpected_death = StoryNode("Suddenly, a terrifying creature emerges from the darkness and devours you. Game over!")
+horror_forest = StoryNode("You venture deeper into the forest, and eerie sounds surround you. The trees seem to come alive.")
+discover_hidden_cult = StoryNode("You discover a hidden cult that is involved in mysterious activities. What do you do?")
+investigate_cult = Option("Investigate the mysterious cult", discover_hidden_cult)
+
+# Add new story nodes with religious elements
+encounter_monk = StoryNode("You encounter a monk in the forest. He offers you his guidance. What do you do?")
+holy_sanctuary = StoryNode("The monk leads you to a hidden sanctuary in the forest. It is a place of peace and tranquility. What do you do?")
+divine_intervention = StoryNode("You pray for guidance, and you feel a sense of peace and calm. You also receive a vision of a path that you should follow. What do you do?")
+holy_path = StoryNode("You follow the path that you saw in your vision. It leads you to a hidden cave in the forest. What do you do?")
+hidden_chamber = StoryNode("You enter the cave and find yourself in a hidden chamber. In the center of the chamber is a mysterious artifact. What do you do?")
+examine_artifact = StoryNode("You examine the artifact and discover that it is a powerful relic. It is said to have the power to grant wishes. What do you do?")
+make_a_wish = StoryNode("You make a wish, and the artifact begins to glow. You feel a surge of power coursing through your veins. Your wish has been granted.")
+
+# Add new options that allow the player to make choices that reflect their religious beliefs
+pray_for_help = Option("Pray for help", None)
+offer_prayer_of_thanksgiving = Option("Offer a prayer of thanksgiving", None)
+read_scriptures = Option("Read your scriptures", None)
+seek_guidance_from_religious_mentor = Option("Seek guidance from your religious mentor", None)
+
+# Add new story nodes with mystery/thriller themes
+confront_cult_leader = StoryNode("You confront the cult leader and demand to know what they are up to. The cult leader denies any wrongdoing, but you can tell that they are lying. What do you do)?")
+expose_cult = StoryNode("You gather evidence to expose the cult's activities to the authorities.")
+join_cult = StoryNode("You decide to join the cult to uncover their secrets from within.")
+escape_cult = StoryNode("You manage to escape from the cult's clutches and vow to bring them down.")
+
+# Connect the story nodes with options
+start.add_option("Explore the forest", explore_forest)
+start.add_option("Look for an exit", look_for_exit)
+start.add_option("Pray for help", encounter_monk)
+start.add_option("Offer a prayer of thanksgiving", holy_sanctuary)
+start.add_option("Read your scriptures", divine_intervention)
+start.add_option("Seek guidance from your religious mentor", holy_path)
+
+explore_forest.add_option("Continue exploring", encounter_dragon)
+explore_forest.add_option("Seek help from the elves", encounter_elves)
+explore_forest.add_option("Join the dwarves", encounter_dwarves)
+
+look_for_exit.add_option("Keep searching", horror_forest)
+look_for_exit.add_option("Pray for guidance", divine_intervention)
+look_for_exit.add_option("Seek help from a knight", knight)
+
+encounter_dragon.add_option("Fight the dragon", fight_dragon)
+encounter_dragon.add_option("Befriend the dragon", befriend_dragon)
+
+fight_dragon.add_option("Continue fighting", unexpected_death)
+fight_dragon.add_option("Retreat and find another way", explore_forest)
+
+befriend_dragon.add_option("Ask the dragon to help find the treasure", find_treasure)
+befriend_dragon.add_option("Seek the elves' assistance", encounter_elves)
+
+encounter_elves.add_option("Accept their offer to guide you", exit_forest)
+encounter_elves.add_option("Ask them about the hidden cult", discover_hidden_cult)
+
+encounter_dwarves.add_option("Join the dwarves in their mining expedition", find_treasure)
+encounter_dwarves.add_option("Ask them about the hidden cult", discover_hidden_cult)
+
+find_treasure.add_option("Open the treasure chest", treasure)
+
+# Connect new story nodes with options
+encounter_monk.add_option("Follow the monk", holy_sanctuary)
+encounter_monk.add_option("Ask the monk about the hidden cult", discover_hidden_cult)
+
+holy_sanctuary.add_option("Stay in the sanctuary and meditate", divine_intervention)
+holy_sanctuary.add_option("Leave the sanctuary and continue your journey", holy_path)
+
+divine_intervention.add_option("Follow the path shown in your vision", holy_path)
+divine_intervention.add_option("Pray for further guidance", hidden_chamber)
+
+holy_path.add_option("Enter the hidden cave", hidden_chamber)
+holy_path.add_option("Pray for guidance again", divine_intervention)
+
+hidden_chamber.add_option("Examine the mysterious artifact", examine_artifact)
+hidden_chamber.add_option("Pray for wisdom and guidance", examine_artifact)
+
+examine_artifact.add_option("Make a wish using the artifact's power", make_a_wish)
+examine_artifact.add_option("Leave the artifact and continue your journey", exit_forest)
+
+# Connect new story nodes with options
+discover_hidden_cult.add_option("Investigate the mysterious cult", investigate_cult)
+discover_hidden_cult.add_option("Expose the cult's activities", expose_cult)
+discover_hidden_cult.add_option("Join the cult", join_cult)
+
+investigate_cult.add_option("Confront the cult leader", confront_cult_leader)
+investigate_cult.add_option("Gather evidence to expose the cult", expose_cult)
+investigate_cult.add_option("Escape from the cult", escape_cult)
+
+# Start the game
+current_node = start
+
+while True:
+    print(current_node.text)
+
+    if current_node == treasure or current_node == exit_forest or current_node == make_a_wish:
+        break
+
+    if current_node.options:
+        for i, option in enumerate(current_node.options):
+            print(f"{i + 1}. {option.text}")
+        
+        choice = input("Enter your choice (1-{}): ".format(len(current_node.options)))
+        choice = int(choice) - 1
+
+        if choice < 0 or choice >= len(current_node.options):
+            print("Invalid choice. Please try again.")
+        else:
+            current_node = current_node.options[choice].destination
+    else:
+        print("The end")
+        break
